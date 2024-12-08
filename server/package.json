@@ -1,5 +1,6 @@
 {
-  "name": "graphql-server-example",
+  "name": "express-apollo-backend",
+  "private": true,
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -32,6 +33,7 @@
     "@types/express": "^5.0.0",
     "@types/node": "^22.10.1",
     "nodemon": "^3.1.7",
+    "prettier": "^3.4.2",
     "prisma": "^6.0.1",
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
