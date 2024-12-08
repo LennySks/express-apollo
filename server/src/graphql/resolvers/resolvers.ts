@@ -3,10 +3,9 @@ const prisma = new PrismaClient();
 
 export const resolvers = {
     Query: {
-        allUsers: () => {
+        users: () => {
             return prisma.user.findMany()
         }
     },
-    Mutation: {},
 }
 

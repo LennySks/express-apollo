@@ -49,5 +49,5 @@ await new Promise<void>((resolve) =>
     httpServer.listen({port: 4000}, resolve)
 );
 
-console.log(`🚀 Express Server ready at http://localhost:${port}}/`);
+console.log(`🚀 Express Server ready at http://localhost:${port}/`);
 console.log(`🚀 GraphQL Server ready at http://localhost:${port}/graphql`);

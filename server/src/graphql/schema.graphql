@@ -18,3 +18,10 @@ type Task {
     updatedAt: String
     user: User
 }
+
+type Query {
+    users: [User!]!
+    user(id: ID!): User
+    tasks: [Task!]!
+    task(id: ID!): Task
+}
