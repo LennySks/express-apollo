@@ -5,6 +5,13 @@ export const resolvers = {
     Query: {
         users: () => {
             return prisma.user.findMany()
+        },
+        user: (_, { id }) => {
+            return prisma.user.findUnique({
+                where: {
+                    id: id
+                }
+            })
         }
     },
 }

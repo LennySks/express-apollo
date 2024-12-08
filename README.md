@@ -11,8 +11,8 @@ Backend
   - [x] Create a basic Apollo server
   - [ ] Graphql (dont forget to generate types)
     - [x] Create schema
-    - [ ] Create resolvers
-    - [ ] Create queries
+    - [x] Create resolvers
+    - [ ] Create queries (within graphql web ui)
     - [ ] Create mutations
     - [ ] Create context
     - [ ] Create data sources (Probably Prisma)
