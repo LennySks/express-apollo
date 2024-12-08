@@ -1,0 +1,20 @@
+type User {
+    id: ID!
+    name: String!
+    email: String!
+    password: String!
+    task: [Task!]!
+}
+
+type Task {
+    id: ID!
+    userId: String!
+    title: String
+    description: String
+    dueDate: String
+    priority: String
+    status: String
+    createdAt: String
+    updatedAt: String
+    user: User
+}
