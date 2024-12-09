@@ -1,6 +1,8 @@
 import { PostCard } from "@/components/PostCard.tsx";
 import { gql, useQuery } from "@apollo/client";
 import { Button } from "@/components/ui/button.tsx";
+import { Link } from "react-router-dom";
+import { Post } from "@/__generated__/graphql.ts";
 
 export const GET_POSTS = gql(`
 query Posts {
@@ -24,8 +26,10 @@ export const Posts: React.FC = () => {
   return (
     <div className="mt-5">
       <div className="flex flex-col gap-4">
-        {data.posts.map((post: any) => (
-          <PostCard key={post.id} post={post} />
+        {data.posts.map((post: Post) => (
+          <Link to={`/post/${post.id}`} key={post.id}>
+            <PostCard post={post} />
+          </Link>
         ))}
       </div>
       <div className="flex justify-center">

@@ -22,6 +22,7 @@ query GetPost($postId: ID!) {
 
 export const Post: React.FC = () => {
   const { postId = "" } = useParams();
+
   const { loading, error, data } = useQuery(GET_POST, {
     variables: { postId },
   });

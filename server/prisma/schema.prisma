@@ -8,17 +8,17 @@ datasource db {
 }
 
 model User {
-  id       Int    @id @default(autoincrement())
+  id       String @id @default(uuid())
   username String
   email    String @unique
   Post     Post[]
 }
 
 model Post {
-  id       Int      @id @default(autoincrement())
+  id       String   @id @default(uuid())
   title    String
   content  String
   author   User     @relation(fields: [authorId], references: [id])
-  authorId Int
+  authorId String
   addedAt  DateTime @default(now())
 }

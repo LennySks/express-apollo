@@ -1,5 +1,6 @@
 import { Post, PrismaClient, User } from "@prisma/client";
 import { faker } from "@faker-js/faker";
+import { v4 as uuidv4 } from "uuid";
 
 const prisma = new PrismaClient();
 
@@ -18,7 +19,8 @@ async function userSeed() {
     const firstName = faker.person.firstName();
     const lastName = faker.person.lastName();
 
-    const user: Omit<User, "id"> = {
+    const user: User = {
+      id: uuidv4(),
       email: faker.internet.email({ firstName, lastName }),
       username: faker.person.firstName() + faker.number.int(100),
     };
@@ -47,7 +49,8 @@ async function userPosts() {
         recentDate.getMinutes(),
       );
 
-      const post: Omit<Post, "id"> = {
+      const post: Post = {
+        id: uuidv4(),
         title: faker.lorem.sentence(),
         content: faker.lorem.paragraph(),
         authorId: user.id,
