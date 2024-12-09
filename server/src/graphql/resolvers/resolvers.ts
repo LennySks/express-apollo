@@ -1,5 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
+import { DateTimeResolver } from "graphql-scalars";
 
 export const resolvers = {
   Query: {
@@ -42,4 +43,5 @@ export const resolvers = {
       });
     },
   },
+  DateTime: DateTimeResolver,
 };

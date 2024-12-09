@@ -1,4 +1,4 @@
-import { GraphQLResolveInfo } from 'graphql';
+import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -14,11 +14,12 @@ export type Scalars = {
   Boolean: { input: boolean; output: boolean; }
   Int: { input: number; output: number; }
   Float: { input: number; output: number; }
+  DateTime: { input: any; output: any; }
 };
 
 export type Post = {
   __typename?: 'Post';
-  addedAt?: Maybe<Scalars['String']['output']>;
+  addedAt?: Maybe<Scalars['DateTime']['output']>;
   authorId?: Maybe<Scalars['String']['output']>;
   content?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
@@ -124,6 +125,7 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
+  DateTime: ResolverTypeWrapper<Scalars['DateTime']['output']>;
   ID: ResolverTypeWrapper<Scalars['ID']['output']>;
   Post: ResolverTypeWrapper<Post>;
   Query: ResolverTypeWrapper<{}>;
@@ -134,6 +136,7 @@ export type ResolversTypes = {
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Boolean: Scalars['Boolean']['output'];
+  DateTime: Scalars['DateTime']['output'];
   ID: Scalars['ID']['output'];
   Post: Post;
   Query: {};
@@ -141,8 +144,12 @@ export type ResolversParentTypes = {
   User: User;
 };
 
+export interface DateTimeScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['DateTime'], any> {
+  name: 'DateTime';
+}
+
 export type PostResolvers<ContextType = any, ParentType extends ResolversParentTypes['Post'] = ResolversParentTypes['Post']> = {
-  addedAt?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  addedAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
   authorId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   content?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
@@ -167,6 +174,7 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
 };
 
 export type Resolvers<ContextType = any> = {
+  DateTime?: GraphQLScalarType;
   Post?: PostResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   User?: UserResolvers<ContextType>;

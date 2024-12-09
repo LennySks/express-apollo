@@ -1,3 +1,5 @@
+scalar DateTime
+
 type User {
     id: ID!
     username: String!
@@ -17,6 +19,6 @@ type Post {
     title: String
     content: String
     authorId: String
-    addedAt: String
+    addedAt: DateTime
     user: User
 }

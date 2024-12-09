@@ -43,7 +43,7 @@ export const PostCard: React.FC<{ post: Post }> = ({ post }) => {
             </div>
             <h2 className="mb-2 text-xl font-semibold">{title}</h2>
             <p className="mb-4 text-gray-600 ">{content}</p>
-            <p className="text-xs text-gray-500 ">{formattedDate}</p>
+            <p className="text-xs text-gray-500 ">{addedAt}</p>
           </div>
         </div>
       </CardContent>
