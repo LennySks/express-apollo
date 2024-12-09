@@ -2,25 +2,21 @@ type User {
     id: ID!
     username: String!
     email: String!
-    task: [Task!]!
-}
-
-type Task {
-    id: ID!
-    userId: String!
-    title: String
-    description: String
-    dueDate: String
-    priority: String
-    status: String
-    createdAt: String
-    updatedAt: String
-    user: User
+    task: [Post!]!
 }
 
 type Query {
     users: [User!]!
     user(id: ID!): User
-    tasks: [Task!]!
-    task(id: ID!): Task
+    posts: [Post!]!
+    post(id: ID!): Post
+}
+
+type Post {
+    id :ID!
+    title: String
+    content: String
+    authorId: String
+    addedAt: String
+    user: User
 }

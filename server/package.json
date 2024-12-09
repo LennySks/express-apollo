@@ -7,7 +7,9 @@
     "dev": "npx tsx watch ./src/index.ts",
     "compile": "tsc",
     "start": "npm run compile && node ./dist/index.js",
-    "generate": "graphql-codegen"
+    "generate": "graphql-codegen",
+    "db:push": "npx prisma db push",
+    "db:seed": "npx ./prisma/script.ts"
   },
   "keywords": [],
   "author": "",

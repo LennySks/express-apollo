@@ -1,31 +1,27 @@
-import {PrismaClient, User} from '@prisma/client'
+import { Post, PrismaClient, User } from "@prisma/client";
 import { faker } from "@faker-js/faker";
-import { v4 as uuidv4 } from 'uuid';
-const prisma = new PrismaClient()
+import { v4 as uuidv4 } from "uuid";
+
+const prisma = new PrismaClient();
 
 async function main() {
-  // const user = await prisma.user.create({
-  //   data: {
-  //     username: 'Alice',
-  //     email: 'alice@prisma.io',
-  //   },
-  // })
-  // console.log(user)
-  prisma.user.deleteMany();
-  seed();
+  await prisma.post.deleteMany();
+  await prisma.user.deleteMany();
+  await userSeed();
+  await userPosts();
 }
 
-async function seed() {
+async function userSeed() {
   const amountOfUsers = 10;
   const users: User[] = [];
 
   for (let i = 0; i < amountOfUsers; i++) {
-    const firstName = faker.person.firstName()
-    const lastName = faker.person.lastName()
+    const firstName = faker.person.firstName();
+    const lastName = faker.person.lastName();
 
     const user: User = {
       id: uuidv4(),
-      email: faker.internet.email({firstName, lastName}),
+      email: faker.internet.email({ firstName, lastName }),
       username: faker.person.firstName() + faker.number.int(100),
     };
 
@@ -37,12 +33,45 @@ async function seed() {
   addUsers();
 }
 
+async function userPosts() {
+  const users = await prisma.user.findMany();
+  const posts = [];
+
+  for (const user of users) {
+    const amountOfPosts = faker.number.int(3);
+    for (let i = 0; i < amountOfPosts; i++) {
+      const recentDate = faker.date.recent(); // Get a recent date
+      const truncatedDate = new Date(
+        recentDate.getFullYear(),
+        recentDate.getMonth(),
+        recentDate.getDate(),
+        recentDate.getHours(),
+        recentDate.getMinutes(),
+      );
+
+      const post: Post = {
+        id: uuidv4(),
+        title: faker.lorem.sentence(),
+        content: faker.lorem.paragraph(),
+        authorId: user.id,
+        addedAt: truncatedDate,
+      };
+
+      posts.push(post);
+    }
+  }
+
+  const addPosts = async () => await prisma.post.createMany({ data: posts });
+
+  addPosts();
+}
+
 main()
   .then(async () => {
-    await prisma.$disconnect()
+    await prisma.$disconnect();
   })
   .catch(async (e) => {
-    console.error(e)
-    await prisma.$disconnect()
-    process.exit(1)
-  })
+    console.error(e);
+    await prisma.$disconnect();
+    process.exit(1);
+  });
