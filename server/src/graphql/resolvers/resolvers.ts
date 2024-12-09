@@ -14,10 +14,10 @@ export const resolvers = {
         },
       });
     },
-    posts: () => {
+    posts: (_, { offset, limit }) => {
       return prisma.post.findMany({
-        skip: 0,
-        take: 3,
+        skip: offset,
+        take: limit,
         orderBy: {
           addedAt: "desc",
         },

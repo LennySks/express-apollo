@@ -39,6 +39,12 @@ export type QueryPostArgs = {
 };
 
 
+export type QueryPostsArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
 export type QueryUserArgs = {
   id: Scalars['ID']['input'];
 };
@@ -57,8 +63,3 @@ export type GetPostQueryVariables = Exact<{
 
 
 export type GetPostQuery = { __typename?: 'Query', post?: { __typename?: 'Post', id: string, title?: string | null, content?: string | null, addedAt?: any | null, user?: { __typename?: 'User', id: string, username: string, email: string } | null } | null };
-
-export type PostsQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type PostsQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', id: string, title?: string | null, content?: string | null, addedAt?: any | null, user?: { __typename?: 'User', username: string } | null }> };
