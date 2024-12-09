@@ -1,4 +1,3 @@
-// npm install @apollo/server express graphql cors
 import { ApolloServer } from "@apollo/server";
 import { expressMiddleware } from "@apollo/server/express4";
 import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHttpServer";
@@ -26,21 +25,24 @@ const server = new ApolloServer<MyContext>({
   typeDefs,
   resolvers,
   plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
+  csrfPrevention: false,
 });
 // // Ensure we wait for our server to start
 await server.start();
 
 // Set up our Express middleware to handle CORS, body parsing,
 // and our expressMiddleware function.
+app.use("/", express.json(), express.urlencoded({ extended: true }));
+
 app.use(
-  "/",
-  cors<cors.CorsRequest>(),
+  "/graphql",
+  cors<cors.CorsRequest>({
+    origin: "http://localhost:5173",
+    credentials: true,
+  }),
   express.json(),
-  express.urlencoded({ extended: true }),
+  expressMiddleware(server),
 );
-
-app.use("/graphql", expressMiddleware(server));
-
 app.get("/", (req, res) => {
   res.send("Hello, World!");
 });

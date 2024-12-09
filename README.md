@@ -15,16 +15,17 @@ Backend
     - [x] Create resolvers
     - [x] Create simple queries (within graphql web ui)
     - [ ] Create mutations
-    - [ ] Create context
+    - [x] ~~Create context~~
     - [x] ~~Create data sources (Probably Prisma)~~
         - Not needed since prisma is directly usable from the resolvers (idk).
-- [ ] Prisma
-    - [ ] Create schema
-    - [ ] Input data
+- [x] Prisma
+    - [x] Create schema
+    - [x] Input data
 - [ ] Authentication
 
 Frontend
 - [x] Create a vite React app
-  - [ ] Install packages (apollo-client, graphql, graphql-tag)
+  - [x] Install packages (apollo-client, graphql, graphql-tag)
   - [ ] Additional packages (shadcn, react-router-dom, zod, react-hook-form, axios, lucide, toast)
-- [ ] GraphQL (dont forget to generate types)
+- [x] GraphQL (dont forget to generate types)
+- [ ] Button for showing more posts (pagination)

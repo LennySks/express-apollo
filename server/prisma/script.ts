@@ -1,6 +1,5 @@
 import { Post, PrismaClient, User } from "@prisma/client";
 import { faker } from "@faker-js/faker";
-import { v4 as uuidv4 } from "uuid";
 
 const prisma = new PrismaClient();
 
@@ -12,15 +11,14 @@ async function main() {
 }
 
 async function userSeed() {
-  const amountOfUsers = 10;
+  const amountOfUsers = 25;
   const users: User[] = [];
 
   for (let i = 0; i < amountOfUsers; i++) {
     const firstName = faker.person.firstName();
     const lastName = faker.person.lastName();
 
-    const user: User = {
-      id: uuidv4(),
+    const user: Omit<User, "id"> = {
       email: faker.internet.email({ firstName, lastName }),
       username: faker.person.firstName() + faker.number.int(100),
     };
@@ -38,7 +36,7 @@ async function userPosts() {
   const posts = [];
 
   for (const user of users) {
-    const amountOfPosts = faker.number.int(3);
+    const amountOfPosts = faker.number.int({ min: 0, max: 5 });
     for (let i = 0; i < amountOfPosts; i++) {
       const recentDate = faker.date.recent(); // Get a recent date
       const truncatedDate = new Date(
@@ -49,8 +47,7 @@ async function userPosts() {
         recentDate.getMinutes(),
       );
 
-      const post: Post = {
-        id: uuidv4(),
+      const post: Omit<Post, "id"> = {
         title: faker.lorem.sentence(),
         content: faker.lorem.paragraph(),
         authorId: user.id,
