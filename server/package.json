@@ -25,6 +25,7 @@
     "graphql": "^16.9.0",
     "graphql-scalars": "^1.24.0",
     "graphql-tag": "^2.12.6",
+    "prisma-extension-random": "^0.2.2",
     "uuid": "^11.0.3"
   },
   "devDependencies": {

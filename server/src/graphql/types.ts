@@ -17,6 +17,19 @@ export type Scalars = {
   DateTime: { input: any; output: any; }
 };
 
+export type CreatePostInput = {
+  content: Scalars['String']['input'];
+  title: Scalars['String']['input'];
+};
+
+export type CreatePostResponse = {
+  __typename?: 'CreatePostResponse';
+  code: Scalars['Int']['output'];
+  message?: Maybe<Scalars['String']['output']>;
+  post?: Maybe<Post>;
+  success: Scalars['Boolean']['output'];
+};
+
 export type DeletePostResponse = {
   __typename?: 'DeletePostResponse';
   code: Scalars['Int']['output'];
@@ -26,7 +39,14 @@ export type DeletePostResponse = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  createPost?: Maybe<CreatePostResponse>;
   deletePost?: Maybe<DeletePostResponse>;
+  updatePost?: Maybe<UpdatePostResponse>;
+};
+
+
+export type MutationCreatePostArgs = {
+  input: CreatePostInput;
 };
 
 
@@ -34,13 +54,20 @@ export type MutationDeletePostArgs = {
   id: Scalars['ID']['input'];
 };
 
+
+export type MutationUpdatePostArgs = {
+  id: Scalars['ID']['input'];
+  input: UpdatePostInput;
+};
+
 export type Post = {
   __typename?: 'Post';
-  addedAt?: Maybe<Scalars['DateTime']['output']>;
-  authorId?: Maybe<Scalars['String']['output']>;
-  content?: Maybe<Scalars['String']['output']>;
+  addedAt: Scalars['DateTime']['output'];
+  authorId: Scalars['String']['output'];
+  content: Scalars['String']['output'];
   id: Scalars['ID']['output'];
-  title?: Maybe<Scalars['String']['output']>;
+  title: Scalars['String']['output'];
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
   user?: Maybe<User>;
 };
 
@@ -66,6 +93,19 @@ export type QueryPostsArgs = {
 
 export type QueryUserArgs = {
   id: Scalars['ID']['input'];
+};
+
+export type UpdatePostInput = {
+  content?: InputMaybe<Scalars['String']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type UpdatePostResponse = {
+  __typename?: 'UpdatePostResponse';
+  code: Scalars['Int']['output'];
+  message?: Maybe<Scalars['String']['output']>;
+  post?: Maybe<Post>;
+  success: Scalars['Boolean']['output'];
 };
 
 export type User = {
@@ -148,6 +188,8 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
+  CreatePostInput: CreatePostInput;
+  CreatePostResponse: ResolverTypeWrapper<CreatePostResponse>;
   DateTime: ResolverTypeWrapper<Scalars['DateTime']['output']>;
   DeletePostResponse: ResolverTypeWrapper<DeletePostResponse>;
   ID: ResolverTypeWrapper<Scalars['ID']['output']>;
@@ -156,12 +198,16 @@ export type ResolversTypes = {
   Post: ResolverTypeWrapper<Post>;
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
+  UpdatePostInput: UpdatePostInput;
+  UpdatePostResponse: ResolverTypeWrapper<UpdatePostResponse>;
   User: ResolverTypeWrapper<User>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Boolean: Scalars['Boolean']['output'];
+  CreatePostInput: CreatePostInput;
+  CreatePostResponse: CreatePostResponse;
   DateTime: Scalars['DateTime']['output'];
   DeletePostResponse: DeletePostResponse;
   ID: Scalars['ID']['output'];
@@ -170,7 +216,17 @@ export type ResolversParentTypes = {
   Post: Post;
   Query: {};
   String: Scalars['String']['output'];
+  UpdatePostInput: UpdatePostInput;
+  UpdatePostResponse: UpdatePostResponse;
   User: User;
+};
+
+export type CreatePostResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['CreatePostResponse'] = ResolversParentTypes['CreatePostResponse']> = {
+  code?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  message?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  post?: Resolver<Maybe<ResolversTypes['Post']>, ParentType, ContextType>;
+  success?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export interface DateTimeScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['DateTime'], any> {
@@ -185,15 +241,18 @@ export type DeletePostResponseResolvers<ContextType = any, ParentType extends Re
 };
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
+  createPost?: Resolver<Maybe<ResolversTypes['CreatePostResponse']>, ParentType, ContextType, RequireFields<MutationCreatePostArgs, 'input'>>;
   deletePost?: Resolver<Maybe<ResolversTypes['DeletePostResponse']>, ParentType, ContextType, RequireFields<MutationDeletePostArgs, 'id'>>;
+  updatePost?: Resolver<Maybe<ResolversTypes['UpdatePostResponse']>, ParentType, ContextType, RequireFields<MutationUpdatePostArgs, 'id' | 'input'>>;
 };
 
 export type PostResolvers<ContextType = any, ParentType extends ResolversParentTypes['Post'] = ResolversParentTypes['Post']> = {
-  addedAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
-  authorId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  content?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  addedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  authorId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  content?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  updatedAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
   user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
@@ -205,6 +264,14 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   users?: Resolver<Array<ResolversTypes['User']>, ParentType, ContextType>;
 };
 
+export type UpdatePostResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['UpdatePostResponse'] = ResolversParentTypes['UpdatePostResponse']> = {
+  code?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  message?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  post?: Resolver<Maybe<ResolversTypes['Post']>, ParentType, ContextType>;
+  success?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
   email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
@@ -214,11 +281,13 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
 };
 
 export type Resolvers<ContextType = any> = {
+  CreatePostResponse?: CreatePostResponseResolvers<ContextType>;
   DateTime?: GraphQLScalarType;
   DeletePostResponse?: DeletePostResponseResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   Post?: PostResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
+  UpdatePostResponse?: UpdatePostResponseResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
 };
 

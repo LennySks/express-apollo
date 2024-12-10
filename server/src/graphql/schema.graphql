@@ -16,6 +16,32 @@ type Query {
 
 type Mutation {
     deletePost(id: ID!): DeletePostResponse
+    createPost(input: CreatePostInput!): CreatePostResponse
+    updatePost(id: ID!, input: UpdatePostInput!): UpdatePostResponse
+}
+
+input CreatePostInput {
+    title: String!
+    content: String!
+}
+
+input UpdatePostInput {
+    title: String
+    content: String
+}
+
+type CreatePostResponse {
+    code: Int!
+    success: Boolean!
+    message: String
+    post: Post
+}
+
+type UpdatePostResponse {
+    code: Int!
+    success: Boolean!
+    message: String
+    post: Post
 }
 
 type DeletePostResponse {
@@ -26,9 +52,10 @@ type DeletePostResponse {
 
 type Post {
     id :ID!
-    title: String
-    content: String
-    authorId: String
-    addedAt: DateTime
+    title: String!
+    content: String!
+    authorId: String!
+    addedAt: DateTime!
+    updatedAt: DateTime
     user: User
 }

@@ -35,7 +35,7 @@ async function userSeed() {
 
 async function userPosts() {
   const users = await prisma.user.findMany();
-  const posts = [];
+  const posts: Post[] = [];
 
   for (const user of users) {
     const amountOfPosts = faker.number.int({ min: 0, max: 5 });
@@ -55,6 +55,7 @@ async function userPosts() {
         content: faker.lorem.paragraph(),
         authorId: user.id,
         addedAt: truncatedDate,
+        updatedAt: truncatedDate,
       };
 
       posts.push(post);

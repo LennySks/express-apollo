@@ -33,4 +33,4 @@ Frontend
   - [ ] Create
   - [x] Read
   - [ ] Update
-  - [ ] Delete 
+  - [x] Delete 
