@@ -20,36 +20,36 @@ const GET_POSTS = gql(`
 `);
 
 export const Posts: React.FC = () => {
-  const [offset, setOffset] = useState(0);
+  const [isFetchingMore, setIsFetchingMore] = useState(false); // Track "fetchMore" state
+
   const limit = 3;
   const { loading, error, data, fetchMore } = useQuery(GET_POSTS, {
     variables: {
-      offset,
+      offset: 0,
       limit,
     },
+    notifyOnNetworkStatusChange: true,
   });
 
   const loadMorePosts = () => {
-    event.preventDefault();
+    setIsFetchingMore(true); // Set fetchMore state
     fetchMore({
       variables: {
-        offset: offset + limit,
+        offset: data?.posts?.length || 0,
         limit,
       },
       updateQuery: (prevResult, { fetchMoreResult }) => {
+        setIsFetchingMore(false); // Reset fetchMore state
         if (!fetchMoreResult) return prevResult;
 
         return {
-          ...prevResult,
-          posts: [...prevResult.posts, ...fetchMoreResult.posts], // Append new posts to the old ones
+          posts: [...prevResult.posts, ...fetchMoreResult.posts], // Append new posts
         };
       },
-    }).then(() => {
-      setOffset(offset + limit);
-    });
+    }).catch(() => setIsFetchingMore(false)); // Handle errors
   };
 
-  if (loading) return <p>Loading...</p>;
+  if (!data && loading) return <p>Loading...</p>; // Only for the first load
   if (error) return <p>Error: {error.message}</p>;
 
   return (
@@ -64,11 +64,12 @@ export const Posts: React.FC = () => {
       <div className="flex justify-center">
         <Button
           variant={"outline"}
-          type={"button"}
+          type="button"
           className="bg-blue-300 mt-5"
           onClick={loadMorePosts}
+          disabled={isFetchingMore}
         >
-          Show more
+          {isFetchingMore ? "Loading more..." : "Show more"}
         </Button>
       </div>
     </div>
