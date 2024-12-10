@@ -63,3 +63,11 @@ export type GetPostQueryVariables = Exact<{
 
 
 export type GetPostQuery = { __typename?: 'Query', post?: { __typename?: 'Post', id: string, title?: string | null, content?: string | null, addedAt?: any | null, user?: { __typename?: 'User', id: string, username: string, email: string } | null } | null };
+
+export type PostsQueryVariables = Exact<{
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+}>;
+
+
+export type PostsQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', id: string, title?: string | null, content?: string | null, addedAt?: any | null, user?: { __typename?: 'User', username: string } | null }> };
