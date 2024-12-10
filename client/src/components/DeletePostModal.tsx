@@ -26,7 +26,6 @@ export function DeletePostModal({ id }: { id: string }) {
   });
 
   const [isDeleting, setIsDeleting] = useState(false);
-
   const navigate = useNavigate();
 
   const handleDeletePost = async () => {

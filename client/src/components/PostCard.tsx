@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button.tsx";
 import { Post } from "@/__generated__/types.ts";
 import { format } from "date-fns";
 import { DeletePostModal } from "@/components/DeletePostModal.tsx";
+import { UpdatePostModal } from "@/components/UpdatePostModal.tsx";
 
 export const PostCard: React.FC<{ post: Post }> = ({ post }) => {
   const { title, content, addedAt, user, id } = post;
@@ -45,6 +46,7 @@ export const PostCard: React.FC<{ post: Post }> = ({ post }) => {
                     • {user?.username}
                   </span>
                   <div className="ml-auto">
+                    <UpdatePostModal post={post} />
                     <DeletePostModal id={id} />
                   </div>
                 </div>

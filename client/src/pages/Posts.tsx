@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { Post } from "@/__generated__/graphql.ts";
 import { useState } from "react";
 import { GET_POSTS } from "@/graphql/queries.ts";
+import { CreatePostModal } from "@/components/CreatePostModal.tsx";
 
 export const Posts: React.FC = () => {
   const [isFetchingMore, setIsFetchingMore] = useState(false); // Track "fetchMore" state
@@ -58,14 +59,7 @@ export const Posts: React.FC = () => {
           >
             {isFetchingMore ? "Loading more..." : "Show more"}
           </Button>
-          <Button
-            type="button"
-            className="bg-green-300"
-            onClick={loadMorePosts}
-            disabled={isFetchingMore}
-          >
-            Add Post
-          </Button>
+          <CreatePostModal />
         </div>
       </div>
     </div>

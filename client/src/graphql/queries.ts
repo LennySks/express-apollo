@@ -13,3 +13,17 @@ export const GET_POSTS = gql(`
     }
   }
 `);
+
+export const GET_POST = gql(`
+query GetPost($postId: ID!) {
+  post(id: $postId) {
+    id
+    title
+    content
+    addedAt
+    user {
+      username
+    }
+  }
+}
+`);
