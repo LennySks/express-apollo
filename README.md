@@ -28,4 +28,9 @@ Frontend
   - [x] Install packages (apollo-client, graphql, graphql-tag)
   - [ ] Additional packages (shadcn, react-router-dom, zod, react-hook-form, axios, lucide, toast)
 - [x] GraphQL (dont forget to generate types)
-- [ ] Button for showing more posts (pagination)
+- [x] Button for showing more posts (pagination)
+- [ ] CRUD Posts
+  - [ ] Create
+  - [x] Read
+  - [ ] Update
+  - [ ] Delete 

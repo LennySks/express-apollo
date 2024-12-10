@@ -63,7 +63,6 @@ export const Posts: React.FC = () => {
       </div>
       <div className="flex justify-center">
         <Button
-          variant={"outline"}
           type="button"
           className="bg-blue-300 mt-5"
           onClick={loadMorePosts}
