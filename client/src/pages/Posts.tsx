@@ -1,23 +1,10 @@
 import { PostCard } from "@/components/PostCard.tsx";
-import { gql, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { Button } from "@/components/ui/button.tsx";
 import { Link } from "react-router-dom";
 import { Post } from "@/__generated__/graphql.ts";
 import { useState } from "react";
-
-const GET_POSTS = gql(`
-  query Posts($offset: Int, $limit: Int) {
-    posts(offset: $offset, limit: $limit) {
-      id
-      title
-      content
-      addedAt
-      user {
-        username
-      }
-    }
-  }
-`);
+import { GET_POSTS } from "@/graphql/queries.ts";
 
 export const Posts: React.FC = () => {
   const [isFetchingMore, setIsFetchingMore] = useState(false); // Track "fetchMore" state
@@ -61,15 +48,25 @@ export const Posts: React.FC = () => {
           </Link>
         ))}
       </div>
-      <div className="flex justify-center">
-        <Button
-          type="button"
-          className="bg-blue-300 mt-5"
-          onClick={loadMorePosts}
-          disabled={isFetchingMore}
-        >
-          {isFetchingMore ? "Loading more..." : "Show more"}
-        </Button>
+      <div className="mt-5">
+        <div className="flex flex-col items-center justify-items-center gap-3">
+          <Button
+            type="button"
+            className="bg-blue-300 "
+            onClick={loadMorePosts}
+            disabled={isFetchingMore}
+          >
+            {isFetchingMore ? "Loading more..." : "Show more"}
+          </Button>
+          <Button
+            type="button"
+            className="bg-green-300"
+            onClick={loadMorePosts}
+            disabled={isFetchingMore}
+          >
+            Add Post
+          </Button>
+        </div>
       </div>
     </div>
   );

@@ -44,4 +44,41 @@ export const resolvers = {
     },
   },
   DateTime: DateTimeResolver,
+  Mutation: {
+    deletePost: async (_, { id }) => {
+      try {
+        const post = await prisma.post.findUnique({
+          where: {
+            id: id,
+          },
+        });
+
+        if (!post) {
+          return {
+            code: 404,
+            success: false,
+            message: "Post not found",
+          };
+        }
+
+        await prisma.post.delete({
+          where: {
+            id: id,
+          },
+        });
+
+        return {
+          code: 200,
+          success: true,
+          message: "Post deleted successfully",
+        };
+      } catch (err) {
+        return {
+          code: 500,
+          success: false,
+          message: `Something went wrong: ${err.extensions.response.body}`,
+        };
+      }
+    },
+  },
 };

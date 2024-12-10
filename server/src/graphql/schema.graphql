@@ -4,7 +4,7 @@ type User {
     id: ID!
     username: String!
     email: String!
-    task: [Post!]!
+    posts: [Post!]!
 }
 
 type Query {
@@ -12,6 +12,16 @@ type Query {
     user(id: ID!): User
     posts(offset: Int, limit: Int): [Post!]!
     post(id: ID!): Post
+}
+
+type Mutation {
+    deletePost(id: ID!): DeletePostResponse
+}
+
+type DeletePostResponse {
+    code: Int!
+    success: Boolean!
+    message: String
 }
 
 type Post {

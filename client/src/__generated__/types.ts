@@ -15,6 +15,23 @@ export type Scalars = {
   DateTime: { input: any; output: any; }
 };
 
+export type DeletePostResponse = {
+  __typename?: 'DeletePostResponse';
+  code: Scalars['Int']['output'];
+  message?: Maybe<Scalars['String']['output']>;
+  success: Scalars['Boolean']['output'];
+};
+
+export type Mutation = {
+  __typename?: 'Mutation';
+  deletePost?: Maybe<DeletePostResponse>;
+};
+
+
+export type MutationDeletePostArgs = {
+  id: Scalars['ID']['input'];
+};
+
 export type Post = {
   __typename?: 'Post';
   addedAt?: Maybe<Scalars['DateTime']['output']>;
@@ -53,7 +70,7 @@ export type User = {
   __typename?: 'User';
   email: Scalars['String']['output'];
   id: Scalars['ID']['output'];
-  task: Array<Post>;
+  posts: Array<Post>;
   username: Scalars['String']['output'];
 };
 
@@ -63,11 +80,3 @@ export type GetPostQueryVariables = Exact<{
 
 
 export type GetPostQuery = { __typename?: 'Query', post?: { __typename?: 'Post', id: string, title?: string | null, content?: string | null, addedAt?: any | null, user?: { __typename?: 'User', id: string, username: string, email: string } | null } | null };
-
-export type PostsQueryVariables = Exact<{
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-}>;
-
-
-export type PostsQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', id: string, title?: string | null, content?: string | null, addedAt?: any | null, user?: { __typename?: 'User', username: string } | null }> };

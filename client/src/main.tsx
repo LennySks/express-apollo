@@ -6,7 +6,9 @@ import { Posts } from "@/pages/Posts.tsx";
 import { NotFoundPage } from "@/pages/NotFoundPage.tsx";
 import { Post } from "@/pages/Post.tsx";
 import "../index.css";
+import { ToastContainer } from "react-toastify";
 
+import "react-toastify/dist/ReactToastify.css";
 const client = new ApolloClient({
   uri: "http://localhost:4000/graphql",
   cache: new InMemoryCache({
@@ -42,6 +44,7 @@ createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <ApolloProvider client={client}>
       <RouterProvider router={router} />
+      <ToastContainer />
     </ApolloProvider>
   </StrictMode>,
 );
